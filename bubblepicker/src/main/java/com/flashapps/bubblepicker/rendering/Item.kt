@@ -86,9 +86,9 @@ data class Item(val pickerItem: PickerItem, val circleBody: CircleBody) {
         val bgPaint = Paint()
         bgPaint.style = Paint.Style.FILL
         if (isSelected) {
-            pickerItem.color?.let { bgPaint.color = pickerItem.color!! }
-        } else {
             pickerItem.selectedColor?.let { bgPaint.color = pickerItem.selectedColor!! }
+        } else {
+            pickerItem.color?.let { bgPaint.color = pickerItem.color!! }
         }
         pickerItem.gradient?.let { bgPaint.shader = gradient }
         /*if (withImage) bgPaint.alpha = (pickerItem.overlayAlpha * 255).toInt()*/
