@@ -1,5 +1,12 @@
+plugins {
+    id "com.github.dcendents.android-maven" version "2.0"
+}
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+
+group='com.github.dieter115'
+version = '1.0'
 
 android {
     compileSdkVersion 26
