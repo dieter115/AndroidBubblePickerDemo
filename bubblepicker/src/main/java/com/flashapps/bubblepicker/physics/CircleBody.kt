@@ -106,5 +106,4 @@ class CircleBody(val world: World, var position: Vec2, var radius: Float, var in
         isIncreasing = false
         isDecreasing = false
     }
-
 }

@@ -25,7 +25,7 @@ public class JavaDemoActivity extends AppCompatActivity {
 
     private Typeface boldTypeface;
     private Typeface mediumTypeface;
-    private Typeface regularTypeface ;
+    private Typeface regularTypeface;
 
     TextView titleTextView;
     TextView subtitleTextView;
@@ -71,10 +71,13 @@ public class JavaDemoActivity extends AppCompatActivity {
             public PickerItem getItem(int position) {
                 PickerItem pickerItem = new PickerItem();
                 pickerItem.setTitle(titles[position]);
-                pickerItem.setColor(ContextCompat.getColor(getApplicationContext(),R.color.colorPrimary));
-                pickerItem.setSelectedColor(ContextCompat.getColor(getApplicationContext(),R.color.colorPrimaryDark));
+                pickerItem.setColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                pickerItem.setSelectedColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
                 pickerItem.setTypeface(mediumTypeface);
                 pickerItem.setTextColor(ContextCompat.getColor(JavaDemoActivity.this, android.R.color.white));
+                pickerItem.setBorderSize(5);
+                pickerItem.setBorderColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
+                pickerItem.setBorderSelectedColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
                 return pickerItem;
             }
         });
@@ -85,12 +88,12 @@ public class JavaDemoActivity extends AppCompatActivity {
         picker.setListener(new BubblePickerListener() {
             @Override
             public void onBubbleSelected(@NotNull PickerItem item) {
-                toast(item.getTitle()+"selected");
+                toast(item.getTitle() + "selected");
             }
 
             @Override
             public void onBubbleDeselected(@NotNull PickerItem item) {
-                toast(item.getTitle()+"deselected");
+                toast(item.getTitle() + "deselected");
             }
         });
     }

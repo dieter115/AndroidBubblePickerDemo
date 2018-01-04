@@ -75,6 +75,7 @@ data class Item(val pickerItem: PickerItem, val circleBody: CircleBody) {
         val canvas = Canvas(bitmap)
 
         /*if (isSelected) drawImage(canvas)*/
+        drawBorder(canvas, isSelected)
         drawBackground(canvas, isSelected)
         /*drawIcon(canvas)*/
         drawText(canvas)
@@ -82,17 +83,45 @@ data class Item(val pickerItem: PickerItem, val circleBody: CircleBody) {
         return bitmap
     }
 
-    private fun drawBackground(canvas: Canvas, isSelected: Boolean) {
+    /**
+     * DrawBorder of the circle, when there is no color selected don't draw the border
+     */
+    private fun drawBorder(canvas: Canvas, isSelected: Boolean) {
         val bgPaint = Paint()
         bgPaint.style = Paint.Style.FILL
         if (isSelected) {
-            pickerItem.selectedColor?.let { bgPaint.color = pickerItem.selectedColor!! }
+            if (pickerItem.borderSelectedColor != null){
+                pickerItem.borderSelectedColor?.let { bgPaint.color = pickerItem.borderSelectedColor!! }
+            }else{
+                pickerItem.borderColor?.let { bgPaint.color = pickerItem.borderColor!! }
+            }
         } else {
-            pickerItem.color?.let { bgPaint.color = pickerItem.color!! }
+            pickerItem.borderColor?.let { bgPaint.color = pickerItem.borderColor!! }
         }
+
         pickerItem.gradient?.let { bgPaint.shader = gradient }
         /*if (withImage) bgPaint.alpha = (pickerItem.overlayAlpha * 255).toInt()*/
-        canvas.drawRect(0f, 0f, bitmapSize, bitmapSize, bgPaint)
+//        canvas.drawRect(0f, 0f, bitmapSize + 50, bitmapSize + 50, bgPaint)
+        canvas.drawCircle(bitmapSize / 2, bitmapSize / 2, bitmapSize / 2, bgPaint)
+    }
+
+    private fun drawBackground(canvas: Canvas, isSelected: Boolean) {
+        val bgPaint = Paint()
+        bgPaint.style = Paint.Style.FILL
+        var border = 0
+
+        if (isSelected) {
+            pickerItem.selectedColor?.let { bgPaint.color = pickerItem.selectedColor!! }
+            pickerItem.selectedColor?.let {  border = pickerItem.borderSize}
+        } else {
+            pickerItem.color?.let { bgPaint.color = pickerItem.color!! }
+            pickerItem.color?.let {  border = pickerItem.borderSize}
+        }
+
+        pickerItem.gradient?.let { bgPaint.shader = gradient }
+        /*if (withImage) bgPaint.alpha = (pickerItem.overlayAlpha * 255).toInt()*/
+        canvas.drawCircle(bitmapSize / 2, bitmapSize / 2, bitmapSize / 2 - border, bgPaint)
+//        canvas.drawRect(0f, 0f, bitmapSize, bitmapSize, bgPaint)
     }
 
     private fun drawText(canvas: Canvas) {
