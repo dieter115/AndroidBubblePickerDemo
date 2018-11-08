@@ -78,7 +78,7 @@ data class Item(val pickerItem: PickerItem, val circleBody: CircleBody) {
         drawBorder(canvas, isSelected)
         drawBackground(canvas, isSelected)
         /*drawIcon(canvas)*/
-        drawText(canvas)
+        drawText(canvas, isSelected)
 
         return bitmap
     }
@@ -90,9 +90,9 @@ data class Item(val pickerItem: PickerItem, val circleBody: CircleBody) {
         val bgPaint = Paint()
         bgPaint.style = Paint.Style.FILL
         if (isSelected) {
-            if (pickerItem.borderSelectedColor != null){
+            if (pickerItem.borderSelectedColor != null) {
                 pickerItem.borderSelectedColor?.let { bgPaint.color = pickerItem.borderSelectedColor!! }
-            }else{
+            } else {
                 pickerItem.borderColor?.let { bgPaint.color = pickerItem.borderColor!! }
             }
         } else {
@@ -112,10 +112,10 @@ data class Item(val pickerItem: PickerItem, val circleBody: CircleBody) {
 
         if (isSelected) {
             pickerItem.selectedColor?.let { bgPaint.color = pickerItem.selectedColor!! }
-            pickerItem.selectedColor?.let {  border = pickerItem.borderSize}
+            pickerItem.selectedColor?.let { border = pickerItem.borderSize }
         } else {
             pickerItem.color?.let { bgPaint.color = pickerItem.color!! }
-            pickerItem.color?.let {  border = pickerItem.borderSize}
+            pickerItem.color?.let { border = pickerItem.borderSize }
         }
 
         pickerItem.gradient?.let { bgPaint.shader = gradient }
@@ -124,11 +124,15 @@ data class Item(val pickerItem: PickerItem, val circleBody: CircleBody) {
 //        canvas.drawRect(0f, 0f, bitmapSize, bitmapSize, bgPaint)
     }
 
-    private fun drawText(canvas: Canvas) {
+    private fun drawText(canvas: Canvas, isSelected: Boolean) {
         if (pickerItem.title == null || pickerItem.textColor == null) return
 
         val paint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = pickerItem.textColor!!
+            if (isSelected) {
+                color = pickerItem.selectedTextColor!!
+            } else {
+                color = pickerItem.textColor!!
+            }
             textSize = pickerItem.textSize
             typeface = pickerItem.typeface
         }

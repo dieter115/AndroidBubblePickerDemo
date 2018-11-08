@@ -75,6 +75,7 @@ public class JavaDemoActivity extends AppCompatActivity {
                 pickerItem.setSelectedColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
                 pickerItem.setTypeface(mediumTypeface);
                 pickerItem.setTextColor(ContextCompat.getColor(JavaDemoActivity.this, android.R.color.white));
+                pickerItem.setSelectedTextColor(ContextCompat.getColor(JavaDemoActivity.this, android.R.color.holo_green_dark));
                 pickerItem.setBorderSize(5);
                 pickerItem.setBorderColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
                 pickerItem.setBorderSelectedColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
